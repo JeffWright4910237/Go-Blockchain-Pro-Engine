@@ -1,0 +1,22 @@
+package main
+
+type BalanceBook struct {
+	book map[string]float64
+}
+
+func NewBalanceBook() *BalanceBook {
+	return &BalanceBook{book: make(map[string]float64)}
+}
+
+func (b *BalanceBook) AddrBalance(addr string) float64 {
+	return b.book[addr]
+}
+
+func (b *BalanceBook) Transfer(from, to string, amt float64) bool {
+	if b.book[from] < amt {
+		return false
+	}
+	b.book[from] -= amt
+	b.book[to] += amt
+	return true
+}
